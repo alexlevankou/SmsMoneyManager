@@ -1,6 +1,7 @@
 package by.alexlevankou.smsmoneymanager;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         if(!isSmsPermissionGranted()) {
-            requestRecieveSmsPermission();
+            showRequestPermissionsInfoAlertDialog();
+            //requestRecieveSmsPermission();
         }
     }
 
@@ -53,7 +56,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED;
     }
 
-    private void requestRecieveSmsPermission() {
+    private void showRequestPermissionsInfoAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.permission_alert_dialog_title);
+        builder.setMessage(R.string.permission_dialog_message);
+        builder.setPositiveButton(R.string.action_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                requestReceiveSmsPermission();
+            }
+        });
+        builder.show();
+    }
+
+    private void requestReceiveSmsPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS)) {
             // You may display a non-blocking explanation here, read more in the documentation:
             // https://developer.android.com/training/permissions/requesting.html
