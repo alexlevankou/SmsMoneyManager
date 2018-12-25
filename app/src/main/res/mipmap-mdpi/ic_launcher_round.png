@@ -1,0 +1,55 @@
+<application>
+  <component name="ActionsCollector">
+    <counts>
+      <entry action="$Copy" count="3" />
+      <entry action="$Delete" count="35" />
+      <entry action="$Paste" count="44" />
+      <entry action="$Redo" count="1" />
+      <entry action="$SelectAll" count="14" />
+      <entry action="$Undo" count="269" />
+      <entry action="About" count="2" />
+      <entry action="Android Lint Quick Fixes" count="2" />
+      <entry action="Android.LinkExternalCppProject" count="1" />
+      <entry action="Android.RunAndroidAvdManager" count="11" />
+      <entry action="Android.RunAndroidSdkManager" count="10" />
+      <entry action="Android.SyncProject" count="32" />
+      <entry action="AndroidConnectDebuggerAction" count="1" />
+      <entry action="Back" count="42" />
+      <entry action="ChangesView.DeleteUnversioned" count="2" />
+      <entry action="ChangesView.Refresh" count="6" />
+      <entry action="ChangesView.Revert" count="26" />
+      <entry action="CheckinFiles" count="2" />
+      <entry action="CheckinProject" count="23" />
+      <entry action="ChooseDebugConfiguration" count="10" />
+      <entry action="ChooseRunConfiguration" count="2" />
+      <entry action="CleanGradleProject" count="5" />
+      <entry action="CloseProject" count="2" />
+      <entry action="CollapseSelection" count="5" />
+      <entry action="CommentByBlockComment" count="1" />
+      <entry action="CommentByLineComment" count="28" />
+      <entry action="CompareTwoFiles" count="1" />
+      <entry action="CopyPaths" count="1" />
+      <entry action="Debug" count="243" />
+      <entry action="Debugger.EditFrameSource" count="12" />
+      <entry action="Diff.ShowDiff" count="19" />
+      <entry action="EditSource" count="110" />
+      <entry action="EditorBackSpace" count="3189" />
+      <entry action="EditorChooseLookupItem" count="475" />
+      <entry action="EditorCopy" count="570" />
+      <entry action="EditorCut" count="103" />
+      <entry action="EditorDelete" count="1261" />
+      <entry action="EditorDeleteLine" count="7" />
+      <entry action="EditorDown" count="11695" />
+      <entry action="EditorDownWithSelection" count="89" />
+      <entry action="EditorEnter" count="666" />
+      <entry action="EditorLeft" count="2235" />
+      <entry action="EditorLeftWithSelection" count="395" />
+      <entry action="EditorLineEnd" count="5" />
+      <entry action="EditorLineEndWithSelection" count="11" />
+      <entry action="EditorLineStart" count="20" />
+      <entry action="EditorLineStartWithSelection" count="12" />
+      <entry action="EditorPaste" count="604" />
+      <entry action="EditorRight" count="2592" />
+      <entry action="EditorRightWithSelection" count="404" />
+      <entry action="EditorScrollUp" count="1" />
+      <entry action=
