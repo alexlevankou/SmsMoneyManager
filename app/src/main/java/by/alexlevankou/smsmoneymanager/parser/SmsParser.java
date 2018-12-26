@@ -14,6 +14,8 @@ abstract class SmsParser {
     protected abstract void getBalance(String string);
     protected abstract void getBalanceCurrency(String string);
 
-    protected String mBankName;
-
+    String mBankName;
+    String mDateAnchor;
+    String mExpenseAnchor;
+    String mBalanceAnchor;
 }

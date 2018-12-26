@@ -1,37 +1,45 @@
 package by.alexlevankou.smsmoneymanager.parser;
 
+import by.alexlevankou.smsmoneymanager.model.Expense;
+
 public class PriorSmsParser extends SmsParser {
 
-    public PriorSmsParser(){
+    private Expense expense;
+    private String[] sections;
+
+    public PriorSmsParser() {
         mBankName = "Priorbank";
+        mDateAnchor = "Karta";
+        mExpenseAnchor = "Oplata";
+        mBalanceAnchor = "Dostupno";
     }
 
-    public PriorSmsParser(String bank){}
-
-    public boolean isValid(String smsBody)
+    protected boolean isValid(String smsBody)
     {
         return smsBody.startsWith(mBankName);
     }
 
     public void parse(String smsBody)
     {
+        expense = new Expense();
         final String separator = "\\. ";
-        String[] strings = smsBody.split(separator);
+        sections = smsBody.split(separator);
+
     }
 
-    public void getBank(String string){}
+    protected void getBank(String string){}
 
-    public void getCard(String string){}
+    protected void getCard(String string){}
 
-    public void getDate(String string){}
+    protected void getDate(String string){}
 
-    public void getExpense(String string){}
+    protected void getExpense(String string){}
 
-    public void getExpenseCurrency(String string){}
+    protected void getExpenseCurrency(String string){}
 
-    public void getExpenseName(String string){}
+    protected void getExpenseName(String string){}
 
-    public void getBalance(String string){}
+    protected void getBalance(String string){}
 
-    public void getBalanceCurrency(String string){}
+    protected void getBalanceCurrency(String string){}
 }
