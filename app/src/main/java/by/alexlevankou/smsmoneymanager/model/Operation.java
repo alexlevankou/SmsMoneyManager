@@ -2,15 +2,15 @@ package by.alexlevankou.smsmoneymanager.model;
 
 import java.util.Date;
 
-public class Expense {
+public class Operation {
 
     private int id;
     private Date mDate;
     private String mBankName;
-    private Currency mExpense;
+    private Currency mPrice;
     private Currency mBalance;
 
-    public Expense(){}
+    public Operation(){}
 
     public int getId() {
         return id;
@@ -22,29 +22,29 @@ public class Expense {
     public String getBankName() {
         return mBankName;
     }
-    public void setBankName(String mBankName) {
-        this.mBankName = mBankName;
+    public void setBankName(String bankName) {
+        this.mBankName = bankName;
     }
 
     public Date getDate() {
         return mDate;
     }
-    public void setDate(Date mDate) {
-        this.mDate = mDate;
+    public void setDate(Date date) {
+        this.mDate = date;
     }
 
-    public Currency getExpense() {
-        return mExpense;
+    public Currency getPrice() {
+        return mPrice;
     }
-    public void setExpense(Currency mExpense) {
-        this.mExpense = mExpense;
+    public void setPrice(Currency price) {
+        this.mPrice = price;
     }
 
     public Currency getBalance() {
         return mBalance;
     }
-    public void setBalance(Currency mBalance) {
-        this.mBalance = mBalance;
+    public void setBalance(Currency balance) {
+        this.mBalance = balance;
     }
 
 }

@@ -6,10 +6,12 @@ public class Currency {
     private int mCent = 0;
     private boolean hasCent = false;
     private String mCurrency;
+    private String mCentSeparator;
+    private String mThousandSeparator;
 
     public Currency(){}
 
-    public Currency(String money){
+    public Currency(String money) {
         String[] parts = money.split(" ",2);
         try {
             String[] numbers = parts[0].split("\\.",2);
@@ -26,6 +28,8 @@ public class Currency {
             e.printStackTrace();
         }
 
+        mCentSeparator = ".";
+        mThousandSeparator = ",";
     }
 
     @Override
@@ -33,6 +37,7 @@ public class Currency {
         StringBuilder builder = new StringBuilder();
         builder.append(mUnit);
         if(hasCent) {
+            builder.append(mCentSeparator);
             builder.append(mCent / 10);
             builder.append(mCent % 10);
         }

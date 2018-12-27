@@ -1,18 +1,17 @@
 package by.alexlevankou.smsmoneymanager.parser;
 
+import java.util.List;
+
 abstract class SmsParser {
 
     protected abstract boolean isValid(String string);
     public abstract void parse(String string);
 
-    protected abstract void getBank(String string);
-    protected abstract void getCard(String string);
-    protected abstract void getDate(String string);
-    protected abstract void getExpense(String string);
-    protected abstract void getExpenseCurrency(String string);
-    protected abstract void getExpenseName(String string);
-    protected abstract void getBalance(String string);
-    protected abstract void getBalanceCurrency(String string);
+    protected abstract void getBank(List<String> stringList);
+    protected abstract void getCard(List<String> stringList);
+    protected abstract void getDate(List<String> stringList);
+    protected abstract void getExpense(List<String> stringList);
+    protected abstract void getBalance(List<String> stringList);
 
     String mBankName;
     String mDateAnchor;
