@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import by.alexlevankou.smsmoneymanager.R;
 import by.alexlevankou.smsmoneymanager.view.OperationListFragment.OnListFragmentInteractionListener;
 import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent.DummyItem;
 

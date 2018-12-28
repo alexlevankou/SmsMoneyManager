@@ -1,13 +1,22 @@
 package by.alexlevankou.smsmoneymanager.model;
 
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity
 public class Operation {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
     private Date mDate;
     private String mBankName;
+    @Embedded
     private Currency mPrice;
+    @Embedded
     private Currency mBalance;
 
     public Operation(){}
