@@ -1,5 +1,6 @@
 package by.alexlevankou.smsmoneymanager.model;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -12,11 +13,16 @@ public class Operation {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @ColumnInfo(name = "date")
     private Date mDate;
+
+    @ColumnInfo(name = "bank")
     private String mBankName;
-    @Embedded
+
+    @Embedded(prefix = "price")
     private Currency mPrice;
-    @Embedded
+
+    @Embedded(prefix = "balance")
     private Currency mBalance;
 
     public Operation(){}
