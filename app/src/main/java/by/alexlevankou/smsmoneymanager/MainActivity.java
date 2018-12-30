@@ -18,6 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.List;
+
+import by.alexlevankou.smsmoneymanager.model.Operation;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int SMS_PERMISSION_CODE = 0;
@@ -48,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(!isSmsPermissionGranted()) {
             showRequestPermissionsInfoAlertDialog();
-            //requestRecieveSmsPermission();
         }
     }
 
@@ -125,7 +128,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
+            List<Operation> operations = CustomApplication.getInstance().getRepository().getAllOperations();
+            boolean d = true;
         } else if (id == R.id.nav_send) {
 
         }

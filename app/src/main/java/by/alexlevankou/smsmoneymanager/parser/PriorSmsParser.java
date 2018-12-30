@@ -26,7 +26,7 @@ public class PriorSmsParser extends SmsParser {
         return smsBody.startsWith(mBankName);
     }
 
-    public void parse(String smsBody)
+    public Operation parse(String smsBody)
     {
         mOperation = new Operation();
         final String separator = "\\. ";
@@ -35,7 +35,7 @@ public class PriorSmsParser extends SmsParser {
         getDate(sections);
         getExpense(sections);
         getBalance(sections);
-        boolean d = true;
+        return mOperation;
     }
 
     protected void getBank(List<String> stringList){

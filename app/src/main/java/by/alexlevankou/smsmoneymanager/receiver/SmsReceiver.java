@@ -9,6 +9,8 @@ import android.provider.Telephony;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsMessage;
 
+import by.alexlevankou.smsmoneymanager.CustomApplication;
+import by.alexlevankou.smsmoneymanager.model.Operation;
 import by.alexlevankou.smsmoneymanager.parser.PriorSmsParser;
 import by.alexlevankou.smsmoneymanager.service.SmsService;
 
@@ -26,7 +28,18 @@ public class SmsReceiver extends BroadcastReceiver {
                 }
                 PriorSmsParser parser = new PriorSmsParser();
                 if(parser.isValid(smsBody)) {
-                    parser.parse(smsBody);
+
+                    final Operation operation = parser.parse(smsBody);
+                    final PendingResult result = goAsync();
+                    Thread thread = new Thread() {
+                        public void run() {
+                            // Do processing
+                            CustomApplication.getInstance().getRepository().addOperation(operation);
+                            result.finish();
+                        }
+                    };
+                    thread.start();
+                    // нужно выполнять в другом потоке и либо передавать в сервис, либо дожидаться окончания в ресивере
                 }
 
                 //Intent serviceIntent = new Intent(context, SmsService.class);
