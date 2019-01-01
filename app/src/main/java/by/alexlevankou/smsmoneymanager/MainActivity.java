@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,9 +25,11 @@ import android.view.View;
 import java.util.List;
 
 import by.alexlevankou.smsmoneymanager.model.Operation;
+import by.alexlevankou.smsmoneymanager.view.OperationListFragment;
+import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent;
 import by.alexlevankou.smsmoneymanager.viewmodel.OperationViewModel;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OperationListFragment.OnListFragmentInteractionListener {
 
     private static final int SMS_PERMISSION_CODE = 0;
     private OperationViewModel mViewModel;
@@ -59,17 +62,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             showRequestPermissionsInfoAlertDialog();
         }
 
-        mViewModel = ViewModelProviders.of(this).get(OperationViewModel.class);
-        mViewModel.getAllOperations().observe(this, new Observer<List<Operation>>() {
-            @Override
-            public void onChanged(@Nullable List<Operation> operations) {
+//        mViewModel = ViewModelProviders.of(this).get(OperationViewModel.class);
+//        mViewModel.getAllOperations().observe(this, new Observer<List<Operation>>() {
+//            @Override
+//            public void onChanged(@Nullable List<Operation> operations) {
+//
+//                if(operations != null)
+//                {
+//                    int size = operations.size();
+//                }
+//            }
+//        });
 
-                if(operations != null)
-                {
-                    int size = operations.size();
-                }
+        // Check that the activity is using the layout version with
+        // the fragment_container FrameLayout
+        if (findViewById(R.id.fragment_container) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return;
             }
-        });
+
+            Fragment operationListFragment = new OperationListFragment();
+            operationListFragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, operationListFragment).commit();
+        }
     }
 
     private boolean isSmsPermissionGranted() {
@@ -154,4 +173,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+        boolean f = true;
+    }
+
 }

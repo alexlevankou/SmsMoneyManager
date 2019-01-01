@@ -1,7 +1,11 @@
 package by.alexlevankou.smsmoneymanager.view;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,10 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import by.alexlevankou.smsmoneymanager.R;
 import by.alexlevankou.smsmoneymanager.adapter.OperationRecyclerViewAdapter;
+import by.alexlevankou.smsmoneymanager.model.Operation;
 import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent;
 import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent.DummyItem;
+import by.alexlevankou.smsmoneymanager.viewmodel.OperationViewModel;
 
 /**
  * A fragment representing a list of Items.
@@ -28,6 +36,9 @@ public class OperationListFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private OperationViewModel mViewModel;
+    private List<Operation> mOperationList;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,6 +64,18 @@ public class OperationListFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        mViewModel = ViewModelProviders.of(getActivity()).get(OperationViewModel.class);
+        mViewModel.getAllOperations().observe(this, new Observer<List<Operation>>() {
+            @Override
+            public void onChanged(@Nullable List<Operation> operations) {
+
+                if(operations != null)
+                {
+                    mOperationList = operations;
+                    int size = operations.size();
+                }
+            }
+        });
     }
 
     @Override
