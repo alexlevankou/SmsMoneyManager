@@ -1,9 +1,12 @@
 package by.alexlevankou.smsmoneymanager;
 
 import android.Manifest;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -21,10 +24,12 @@ import android.view.View;
 import java.util.List;
 
 import by.alexlevankou.smsmoneymanager.model.Operation;
+import by.alexlevankou.smsmoneymanager.viewmodel.OperationViewModel;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int SMS_PERMISSION_CODE = 0;
+    private OperationViewModel mViewModel;
 
 
     @Override
@@ -53,6 +58,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(!isSmsPermissionGranted()) {
             showRequestPermissionsInfoAlertDialog();
         }
+
+        mViewModel = ViewModelProviders.of(this).get(OperationViewModel.class);
+        mViewModel.getAllOperations().observe(this, new Observer<List<Operation>>() {
+            @Override
+            public void onChanged(@Nullable List<Operation> operations) {
+
+                if(operations != null)
+                {
+                    int size = operations.size();
+                }
+            }
+        });
     }
 
     private boolean isSmsPermissionGranted() {
@@ -128,8 +145,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-            List<Operation> operations = CustomApplication.getInstance().getRepository().getAllOperations();
-            boolean d = true;
+
         } else if (id == R.id.nav_send) {
 
         }
