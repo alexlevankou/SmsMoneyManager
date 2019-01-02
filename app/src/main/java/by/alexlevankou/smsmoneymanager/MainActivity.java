@@ -32,8 +32,6 @@ import by.alexlevankou.smsmoneymanager.viewmodel.OperationViewModel;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OperationListFragment.OnListFragmentInteractionListener {
 
     private static final int SMS_PERMISSION_CODE = 0;
-    private OperationViewModel mViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(!isSmsPermissionGranted()) {
             showRequestPermissionsInfoAlertDialog();
         }
-
-//        mViewModel = ViewModelProviders.of(this).get(OperationViewModel.class);
-//        mViewModel.getAllOperations().observe(this, new Observer<List<Operation>>() {
-//            @Override
-//            public void onChanged(@Nullable List<Operation> operations) {
-//
-//                if(operations != null)
-//                {
-//                    int size = operations.size();
-//                }
-//            }
-//        });
 
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
@@ -174,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(Operation item) {
         boolean f = true;
     }
 

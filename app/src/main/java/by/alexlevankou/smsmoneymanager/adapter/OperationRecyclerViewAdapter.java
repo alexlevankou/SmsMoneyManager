@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import by.alexlevankou.smsmoneymanager.R;
+import by.alexlevankou.smsmoneymanager.model.Operation;
 import by.alexlevankou.smsmoneymanager.view.OperationListFragment.OnListFragmentInteractionListener;
 import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent.DummyItem;
 
@@ -19,10 +20,10 @@ import java.util.List;
  */
 public class OperationRecyclerViewAdapter extends RecyclerView.Adapter<OperationRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Operation> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public OperationRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public OperationRecyclerViewAdapter(List<Operation> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,8 +37,8 @@ public class OperationRecyclerViewAdapter extends RecyclerView.Adapter<Operation
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getId());
+        holder.mNameView.setText(mValues.get(position).getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,25 +54,25 @@ public class OperationRecyclerViewAdapter extends RecyclerView.Adapter<Operation
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValues == null ? 0 : mValues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView mNameView;
+        public Operation mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.item_number);
+            mNameView = view.findViewById(R.id.operation_name);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mNameView.getText() + "'";
         }
     }
 }

@@ -68,11 +68,9 @@ public class OperationListFragment extends Fragment {
         mViewModel.getAllOperations().observe(this, new Observer<List<Operation>>() {
             @Override
             public void onChanged(@Nullable List<Operation> operations) {
-
                 if(operations != null)
                 {
                     mOperationList = operations;
-                    int size = operations.size();
                 }
             }
         });
@@ -91,7 +89,7 @@ public class OperationListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new OperationRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new OperationRecyclerViewAdapter(mOperationList, mListener));
         }
         return view;
     }
@@ -124,7 +122,6 @@ public class OperationListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Operation item);
     }
 }
