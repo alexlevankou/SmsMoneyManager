@@ -13,6 +13,15 @@ public class Operation {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @ColumnInfo(name = "name")
+    private String mName;
+
+    @ColumnInfo(name = "type")
+    private OperationType mOperationType;
+
+    @ColumnInfo(name = "category")
+    private Category mCategory;
+
     @ColumnInfo(name = "date")
     private Date mDate;
 
@@ -32,6 +41,27 @@ public class Operation {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return mName;
+    }
+    public void setName(String name) {
+        this.mName = name;
+    }
+
+    public OperationType getOperationType() {
+        return mOperationType;
+    }
+    public void setOperationType(OperationType type) {
+        this.mOperationType = type;
+    }
+
+    public Category getCategory() {
+        return mCategory;
+    }
+    public void setCategory(Category category) {
+        this.mCategory = category;
     }
 
     public String getBankName() {

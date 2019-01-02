@@ -5,9 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import by.alexlevankou.smsmoneymanager.model.Category;
 import by.alexlevankou.smsmoneymanager.model.Currency;
 import by.alexlevankou.smsmoneymanager.model.Operation;
+import by.alexlevankou.smsmoneymanager.model.OperationType;
+
+import static by.alexlevankou.smsmoneymanager.model.OperationType.EXPENSE;
 
 public class PriorSmsParser extends SmsParser {
 
@@ -16,6 +22,7 @@ public class PriorSmsParser extends SmsParser {
 
     public PriorSmsParser() {
         mBankName = "Priorbank";
+        mNameAnchor = "^[A-Z]{3} ";
         mDateAnchor = "Karta";
         mExpenseAnchor = "Oplata";
         mBalanceAnchor = "Dostupno";
@@ -32,6 +39,7 @@ public class PriorSmsParser extends SmsParser {
         final String separator = "\\. ";
         List<String> sections = Arrays.asList(smsBody.split(separator));
         getBank(sections);
+        getName(sections);
         getDate(sections);
         getExpense(sections);
         getBalance(sections);
@@ -43,6 +51,21 @@ public class PriorSmsParser extends SmsParser {
             if(s.startsWith(mBankName)) {
                 if(mOperation != null) {
                     mOperation.setBankName(s);
+                }
+                break;
+            }
+        }
+    }
+
+    protected void getName(List<String> stringList) {
+        for (String s : stringList) {
+            Pattern pattern = Pattern.compile(mNameAnchor);
+            Matcher matcher = pattern.matcher(s);
+            if(matcher.find()) {
+                if(mOperation != null) {
+                  // TODO: check special room table or Map, if expense with this name already exist. then set existing category
+                    mOperation.setCategory(Category.UNDEFINED);
+                    mOperation.setName(s);
                 }
                 break;
             }
@@ -78,6 +101,7 @@ public class PriorSmsParser extends SmsParser {
                 if(mOperation != null) {
                     String[] strings = s.split(" ", 2);
                     Currency currency = new Currency(strings[1]);
+                    mOperation.setOperationType(OperationType.EXPENSE);
                     mOperation.setPrice(currency);
                 }
                 break;

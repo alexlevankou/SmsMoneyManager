@@ -19,6 +19,7 @@ public class CustomApplication extends Application {
         super.onCreate();
         mInstance = this;
         mDatabase = Room.databaseBuilder(this, OperationDatabase.class, "operation_database")
+                .fallbackToDestructiveMigration()
                 .build();
         mRepository = new Repository(mDatabase.operationDao());
     }
