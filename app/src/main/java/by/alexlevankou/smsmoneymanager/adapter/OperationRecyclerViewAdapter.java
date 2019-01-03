@@ -6,26 +6,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import by.alexlevankou.smsmoneymanager.R;
 import by.alexlevankou.smsmoneymanager.model.Operation;
 import by.alexlevankou.smsmoneymanager.view.OperationListFragment.OnListFragmentInteractionListener;
-import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent.DummyItem;
 
-import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class OperationRecyclerViewAdapter extends RecyclerView.Adapter<OperationRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Operation> mValues;
+    private List<Operation> mValues;
     private final OnListFragmentInteractionListener mListener;
 
     public OperationRecyclerViewAdapter(List<Operation> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
+    }
+
+    public void setItems(List<Operation> items)
+    {
+        mValues = items;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -36,9 +37,12 @@ public class OperationRecyclerViewAdapter extends RecyclerView.Adapter<Operation
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        int id = mValues.get(position).getId();
+        String name = mValues.get(position).getName();
+
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
-        holder.mNameView.setText(mValues.get(position).getName());
+        holder.mIdView.setText(Integer.toString(id));
+        holder.mNameView.setText(name == null ? "" : name);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,16 +58,16 @@ public class OperationRecyclerViewAdapter extends RecyclerView.Adapter<Operation
 
     @Override
     public int getItemCount() {
-        return mValues == null ? 0 : mValues.size();
+        return mValues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mNameView;
-        public Operation mItem;
+        final View mView;
+        final TextView mIdView;
+        final TextView mNameView;
+        Operation mItem;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = view.findViewById(R.id.item_number);

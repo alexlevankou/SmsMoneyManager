@@ -1,6 +1,5 @@
 package by.alexlevankou.smsmoneymanager.view;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -14,40 +13,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import by.alexlevankou.smsmoneymanager.R;
 import by.alexlevankou.smsmoneymanager.adapter.OperationRecyclerViewAdapter;
 import by.alexlevankou.smsmoneymanager.model.Operation;
-import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent;
-import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent.DummyItem;
 import by.alexlevankou.smsmoneymanager.viewmodel.OperationViewModel;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+
 public class OperationListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private OperationViewModel mViewModel;
-    private List<Operation> mOperationList;
+    private List<Operation> mOperationList = new ArrayList<>();
+    private OperationRecyclerViewAdapter mRecycleViewAdapter;
 
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public OperationListFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static OperationListFragment newInstance(int columnCount) {
         OperationListFragment fragment = new OperationListFragment();
@@ -64,6 +50,7 @@ public class OperationListFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
         mViewModel = ViewModelProviders.of(getActivity()).get(OperationViewModel.class);
         mViewModel.getAllOperations().observe(this, new Observer<List<Operation>>() {
             @Override
@@ -71,6 +58,8 @@ public class OperationListFragment extends Fragment {
                 if(operations != null)
                 {
                     mOperationList = operations;
+                    mRecycleViewAdapter.setItems(operations);
+                    // show message that Operation had been added
                 }
             }
         });
@@ -80,7 +69,6 @@ public class OperationListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_operation_list, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -89,7 +77,8 @@ public class OperationListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new OperationRecyclerViewAdapter(mOperationList, mListener));
+            mRecycleViewAdapter = new OperationRecyclerViewAdapter(mOperationList, mListener);
+            recyclerView.setAdapter(mRecycleViewAdapter);
         }
         return view;
     }
