@@ -27,7 +27,6 @@ public class OperationListFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private OperationViewModel mViewModel;
     private List<Operation> mOperationList = new ArrayList<>();
     private OperationRecyclerViewAdapter mRecycleViewAdapter;
 
@@ -51,7 +50,7 @@ public class OperationListFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        mViewModel = ViewModelProviders.of(getActivity()).get(OperationViewModel.class);
+        OperationViewModel mViewModel = ViewModelProviders.of(getActivity()).get(OperationViewModel.class);
         mViewModel.getAllOperations().observe(this, new Observer<List<Operation>>() {
             @Override
             public void onChanged(@Nullable List<Operation> operations) {
@@ -111,6 +110,6 @@ public class OperationListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Operation item);
+        void onListFragmentInteraction(int id);
     }
 }

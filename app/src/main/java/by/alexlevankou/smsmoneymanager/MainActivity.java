@@ -4,6 +4,7 @@ import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ import android.view.View;
 import java.util.List;
 
 import by.alexlevankou.smsmoneymanager.model.Operation;
+import by.alexlevankou.smsmoneymanager.view.EditActivity;
 import by.alexlevankou.smsmoneymanager.view.OperationListFragment;
 import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent;
 import by.alexlevankou.smsmoneymanager.viewmodel.OperationViewModel;
@@ -44,7 +46,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(), EditActivity.class);
+                startActivity(intent);
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -141,13 +145,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.day) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.week) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.month) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.year) {
 
         } else if (id == R.id.nav_share) {
 
@@ -160,8 +164,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void onListFragmentInteraction(Operation item) {
-        boolean f = true;
+    public void onListFragmentInteraction(int id) {
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
-
 }
