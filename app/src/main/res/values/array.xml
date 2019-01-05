@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="category_array">
+        <item>@drawable/ic_undefined</item>
+        <item>@drawable/ic_custom</item>
+        <item>@drawable/ic_bills</item>
+        <item>@drawable/ic_food</item>
+        <item>@drawable/ic_restaurant</item>
+        <item>@drawable/ic_entertainment</item>
+        <item>@drawable/ic_clothes</item>
+        <item>@drawable/ic_house</item>
+        <item>@drawable/ic_car</item>
+        <item>@drawable/ic_communication</item>
+        <item>@drawable/ic_health</item>
+        <item>@drawable/ic_sports</item>
+        <item>@drawable/ic_gift</item>
+        <item>@drawable/ic_pet</item>
+        <item>@drawable/ic_taxi</item>
+        <item>@drawable/ic_transport</item>
+        <item>@drawable/ic_toiletry</item>
+    </integer-array>
+
+    <!--<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
+    <!--<div>Icons made by <a href="https://www.flaticon.com/authors/nikita-golubev" title="Nikita Golubev">Nikita Golubev</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
+    <!--<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
+
+</resources>

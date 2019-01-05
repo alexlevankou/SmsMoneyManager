@@ -1,14 +1,17 @@
 package by.alexlevankou.smsmoneymanager.adapter;
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
 
 import by.alexlevankou.smsmoneymanager.R;
+import by.alexlevankou.smsmoneymanager.model.Category;
 import by.alexlevankou.smsmoneymanager.model.Operation;
 import by.alexlevankou.smsmoneymanager.view.OperationListFragment.OnListFragmentInteractionListener;
 
@@ -17,8 +20,10 @@ public class OperationRecyclerViewAdapter extends RecyclerView.Adapter<Operation
 
     private List<Operation> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private final TypedArray mCategoryResources;
 
-    public OperationRecyclerViewAdapter(List<Operation> items, OnListFragmentInteractionListener listener) {
+    public OperationRecyclerViewAdapter(Context context, List<Operation> items, OnListFragmentInteractionListener listener) {
+        mCategoryResources = context.getResources().obtainTypedArray(R.array.category_array);
         mValues = items;
         mListener = listener;
     }
@@ -37,11 +42,15 @@ public class OperationRecyclerViewAdapter extends RecyclerView.Adapter<Operation
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        int id = mValues.get(position).getId();
-        String name = mValues.get(position).getName();
-
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(Integer.toString(id));
+
+        Category category = holder.mItem.getCategory();
+        holder.mCategoryImage.setImageResource(mCategoryResources.getResourceId(category.getValue(), 0));
+
+        String price = holder.mItem.getPrice().toString();
+        holder.mPriceView.setText(price == null ? "" : price);
+
+        String name = holder.mItem.getName();
         holder.mNameView.setText(name == null ? "" : name);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -63,14 +72,16 @@ public class OperationRecyclerViewAdapter extends RecyclerView.Adapter<Operation
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
-        final TextView mIdView;
+        final ImageView mCategoryImage;
+        final TextView mPriceView;
         final TextView mNameView;
         Operation mItem;
 
         ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_number);
+            mCategoryImage = view.findViewById(R.id.category);
+            mPriceView = view.findViewById(R.id.price);
             mNameView = view.findViewById(R.id.operation_name);
         }
 

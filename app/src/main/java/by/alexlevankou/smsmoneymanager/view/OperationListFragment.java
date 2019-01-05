@@ -77,7 +77,7 @@ public class OperationListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            mRecycleViewAdapter = new OperationRecyclerViewAdapter(mOperationList, mListener);
+            mRecycleViewAdapter = new OperationRecyclerViewAdapter(context, mOperationList, mListener);
             recyclerView.setAdapter(mRecycleViewAdapter);
         }
         return view;
