@@ -1,17 +1,24 @@
 package by.alexlevankou.smsmoneymanager.view;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import by.alexlevankou.smsmoneymanager.R;
@@ -19,11 +26,14 @@ import by.alexlevankou.smsmoneymanager.model.Currency;
 import by.alexlevankou.smsmoneymanager.model.Operation;
 import by.alexlevankou.smsmoneymanager.viewmodel.OperationViewModel;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickListener{
 
     private TextView mPriceValue;
-    private LinearLayout mDateView;
+    private TextView mDateText;
+    private EditText mDescription;
     private List<Button> mNumberButtons = new ArrayList<>();
+    private Operation mOperation;
+    private DateFormat mDateFormat = new SimpleDateFormat("dd MMMM");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +47,19 @@ public class EditActivity extends AppCompatActivity {
             Button button = findViewById(id);
             mNumberButtons.add(button);
         }
+        mDateText = findViewById(R.id.date_text);
         mPriceValue = findViewById(R.id.price_value);
-
+        mDescription = findViewById(R.id.description);
+        mDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    showKeyboard((EditText) v);
+                } else {
+                    hideKeyboard((EditText) v);
+                }
+            }
+        });
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             int id = extras.getInt("id");
@@ -46,11 +67,20 @@ public class EditActivity extends AppCompatActivity {
             mViewModel.getOperation(id).observe(this, new Observer<Operation>() {
                 @Override
                 public void onChanged(@Nullable Operation operation) {
-
                     if(operation != null) {
+                        mOperation = operation;
                         Currency price = operation.getPrice();
+                        String description = operation.getName();
+                        Date date = operation.getDate();
+
                         if(price != null) {
                             mPriceValue.setText(price.getValue());
+                        }
+                        if(description != null) {
+                            mDescription.setText(description);
+                        }
+                        if(date != null) {
+                            mDateText.setText(mDateFormat.format(date));
                         }
                     }
                 }
@@ -64,7 +94,16 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void onDatePickClick(View view) {
-        boolean d = true;
+        Date date = mOperation.getDate();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        Bundle bundle = new Bundle();
+        bundle.putInt("year", cal.get(Calendar.YEAR));
+        bundle.putInt("month", cal.get(Calendar.MONTH));
+        bundle.putInt("day", cal.get(Calendar.DAY_OF_MONTH));
+        DialogFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.setArguments(bundle);
+        datePickerFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     public void onNumberClick(View view) {
@@ -98,5 +137,30 @@ public class EditActivity extends AppCompatActivity {
             str = str.substring(0, str.length() - 1);
             mPriceValue.setText(str);
         }
+    }
+
+    @Override
+    public void onDialogPositiveClick(Date date) {
+        if(date != null) {
+            mDateText.setText(mDateFormat.format(date));
+            mOperation.setDate(date);
+        }
+    }
+
+    @Override
+    public void onDialogCancelClick(DialogFragment dialog) {
+
+    }
+
+    public void showKeyboard(EditText editText) {
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+    }
+
+    public void hideKeyboard(EditText editText) {
+        editText.clearFocus();
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 }
