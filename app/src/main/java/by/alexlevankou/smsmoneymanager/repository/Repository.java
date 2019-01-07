@@ -11,14 +11,14 @@ import io.reactivex.annotations.Nullable;
 
 public class Repository {
 
-    private final OperationDao mOperationDao;
+    private OperationDao mOperationDao;
     private LiveData<List<Operation>> mOperationListData;
 
     public Repository(OperationDao operationDao) {
         this.mOperationDao = operationDao;
     }
 
-    public LiveData<Operation> getOperation(Long operationId) {
+    public LiveData<Operation> getOperation(int operationId) {
         return mOperationDao.getById(operationId);
     }
 

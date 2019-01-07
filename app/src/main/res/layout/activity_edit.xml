@@ -7,14 +7,175 @@
     android:layout_height="match_parent"
     tools:context=".view.EditActivity">
 
+   <LinearLayout
+       android:id="@+id/date"
+       android:clickable="true"
+       android:onClick="onDatePickClick"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginEnd="8dp"
+       android:layout_marginStart="8dp"
+       android:layout_marginTop="8dp"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent">
+
+       <ImageView
+           android:id="@+id/calendar"
+           android:src="@drawable/ic_calendar"
+           style="@style/LayoutCenter"/>
+
+       <TextView
+           android:id="@+id/date_text"
+           style="@style/TextViewBase"
+           android:text="August 22"/>
+
+   </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="281dp"
+        android:layout_height="54dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="344dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        card_view:cardCornerRadius="4dp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.502"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/date">
+
+        <TextView
+            android:id="@+id/price_value"
+            style="@style/CardViewValue"
+            android:text="23.00"/>
+    </android.support.v7.widget.CardView>
+
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/description"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TextView"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="36dp"
+        android:text="description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_view"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:stretchColumns="*"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/table_margin">
+
+            <Button
+                android:id="@+id/button_1"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/button_2"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="2"/>
+
+            <Button
+                android:id="@+id/button_3"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="3"/>
+
+            <Button
+                android:id="@+id/button_4"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="4"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/table_margin">
+
+            <Button
+                android:id="@+id/button_5"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="5"/>
+
+            <Button
+                android:id="@+id/button_6"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="6"/>
+
+            <Button
+                android:id="@+id/button_7"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="7"/>
+
+            <Button
+                android:id="@+id/button_8"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="8"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/table_margin">
+
+            <Button
+                android:id="@+id/button_9"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="9"/>
+
+            <Button
+                android:id="@+id/button_0"
+                style="@style/CardViewButton"
+                android:onClick="onNumberClick"
+                android:text="0"/>
+
+            <Button
+                android:id="@+id/button_dot"
+                style="@style/CardViewButton"
+                android:onClick="onDotClick"
+                android:text="."/>
+
+            <ImageButton
+                android:id="@+id/button_delete"
+                style="@style/CardViewButton"
+                android:onClick="onDeleteClick"
+                android:src="@drawable/ic_delete"/>
+
+        </TableRow>
+
+        <Button
+            android:id="@+id/button_category"
+            style="@style/CardViewButton"
+            android:text="CHOOSE CATEGORY"/>
+    </TableLayout>
 
 </android.support.constraint.ConstraintLayout>

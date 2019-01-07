@@ -15,7 +15,7 @@ public class OperationViewModel extends ViewModel {
         return CustomApplication.getInstance().getRepository().getAllOperations();
     }
 
-    public LiveData<Operation> getOperation(Long id) {
+    public LiveData<Operation> getOperation(int id) {
         return CustomApplication.getInstance().getRepository().getOperation(id);
     }
 }

@@ -20,7 +20,7 @@ public interface OperationDao {
     LiveData<List<Operation>> getAll();
 
     @Query("SELECT * FROM operation WHERE id = :id")
-    LiveData<Operation> getById(long id);
+    LiveData<Operation> getById(int id);
 
     @Insert
     void insert(Operation operation);

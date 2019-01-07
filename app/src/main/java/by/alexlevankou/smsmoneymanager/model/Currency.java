@@ -88,14 +88,20 @@ public class Currency {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+        builder.append(getValue());
+        builder.append(" ");
+        builder.append(mCurrency);
+        return builder.toString();
+    }
+
+    public String getValue() {
+        StringBuilder builder = new StringBuilder();
         builder.append(mUnit);
         if(hasCent) {
             builder.append(mCentSeparator);
             builder.append(mCent / 10);
             builder.append(mCent % 10);
         }
-        builder.append(" ");
-        builder.append(mCurrency);
         return builder.toString();
     }
 }
