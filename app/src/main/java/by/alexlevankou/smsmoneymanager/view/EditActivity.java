@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +27,7 @@ import by.alexlevankou.smsmoneymanager.model.Currency;
 import by.alexlevankou.smsmoneymanager.model.Operation;
 import by.alexlevankou.smsmoneymanager.viewmodel.OperationViewModel;
 
-public class EditActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickListener{
+public class EditActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickListener {
 
     private TextView mPriceValue;
     private TextView mDateText;
@@ -54,12 +55,13 @@ public class EditActivity extends AppCompatActivity implements DatePickerFragmen
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    showKeyboard((EditText) v);
+                    showSoftKeyboard(v);
                 } else {
-                    hideKeyboard((EditText) v);
+                    hideSoftKeyboard(v);
                 }
             }
         });
+
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             int id = extras.getInt("id");
@@ -152,15 +154,16 @@ public class EditActivity extends AppCompatActivity implements DatePickerFragmen
 
     }
 
-    public void showKeyboard(EditText editText) {
-        editText.requestFocus();
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+    public void hideSoftKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public void hideKeyboard(EditText editText) {
-        editText.clearFocus();
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    public void showSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 }

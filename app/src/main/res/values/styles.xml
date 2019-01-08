@@ -28,12 +28,19 @@
     </style>
 
     <style name="CardViewValue" parent="LayoutCenter">
-        <item name="android:textAppearance">@style/EditText.Value</item>
+        <item name="android:textAppearance">@style/EditText</item>
     </style>
 
-    <style name="CardViewButton" parent="LayoutCenter">
-        <item name="android:textAppearance">@style/EditText.Button</item>
+    <style name="CardViewButton">
+        <item name="android:textAppearance">@style/EditText</item>
         <item name="android:background">@drawable/custom_button</item>
+        <item name="android:layout_marginLeft">@dimen/table_margin</item>
+        <item name="android:layout_marginRight">@dimen/table_margin</item>
+        <item name="android:layout_marginTop">@dimen/table_margin</item>
+        <item name="android:layout_marginBottom">@dimen/table_margin</item>
+        <item name="android:layout_weight">1</item>
+
+
     </style>
 
     <style name="Text">
@@ -49,14 +56,7 @@
     </style>
 
     <style name="EditText">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="EditText.Value">
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="EditText.Button">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 </resources>
