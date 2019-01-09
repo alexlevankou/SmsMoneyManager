@@ -2,32 +2,23 @@ package by.alexlevankou.smsmoneymanager.view
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Context
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.widget.DatePicker
+import android.widget.TextView
+import by.alexlevankou.smsmoneymanager.R
+import by.alexlevankou.smsmoneymanager.model.Operation
+import by.alexlevankou.smsmoneymanager.viewmodel.EditViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class DatePickerFragment() : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
-    private var callbackListener: OnDatePickListener? = null
-
-    interface OnDatePickListener {
-        fun onDialogPositiveClick(date: Date?)
-        fun onDialogCancelClick(dialog: DialogFragment)
-    }
-
-    override fun onAttach(activity: Context) {
-        super.onAttach(activity)
-
-        try {
-            callbackListener = activity as OnDatePickListener?
-
-        } catch (e: ClassCastException) {
-            throw ClassCastException(activity.toString() + " must implement OnDateSetListener.")
-        }
-    }
+    private var mOperation : Operation?= null
+    private var mEditViewModel : EditViewModel? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -41,8 +32,13 @@ class DatePickerFragment() : DialogFragment(), DatePickerDialog.OnDateSetListene
             month = c.get(Calendar.MONTH)
             day = c.get(Calendar.DAY_OF_MONTH)
         }
-
         return DatePickerDialog(activity, this, year, month, day)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mEditViewModel = ViewModelProviders.of(activity!!).get(EditViewModel::class.java)
+        mEditViewModel?.getOperation()?.observe(activity!!, Observer<Operation> { operation -> mOperation = operation })
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
@@ -51,6 +47,10 @@ class DatePickerFragment() : DialogFragment(), DatePickerDialog.OnDateSetListene
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, day)
         val date = calendar.time
-        callbackListener?.onDialogPositiveClick(date)
+        val dateText = activity?.findViewById<TextView>(R.id.date_text)
+        val dateFormat = SimpleDateFormat("dd MMMM")
+        dateText?.setText(dateFormat.format(date))
+        mOperation?.setDate(date)
+        mEditViewModel?.updateOperation(mOperation)
     }
 }

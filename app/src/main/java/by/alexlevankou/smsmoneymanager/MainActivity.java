@@ -1,16 +1,12 @@
 package by.alexlevankou.smsmoneymanager;
 
 import android.Manifest;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -23,13 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.List;
-
-import by.alexlevankou.smsmoneymanager.model.Operation;
 import by.alexlevankou.smsmoneymanager.view.EditActivity;
 import by.alexlevankou.smsmoneymanager.view.OperationListFragment;
-import by.alexlevankou.smsmoneymanager.view.dummy.DummyContent;
-import by.alexlevankou.smsmoneymanager.viewmodel.OperationViewModel;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OperationListFragment.OnListFragmentInteractionListener {
 
@@ -48,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), EditActivity.class);
                 startActivity(intent);
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 

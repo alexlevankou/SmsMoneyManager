@@ -67,15 +67,10 @@ public class Currency {
     public Currency(String money) {
         String[] parts = money.split(" ",2);
         try {
-            String[] numbers = parts[0].split("\\.",2);
-            if(numbers[0] != null) {
-                mUnit = Integer.parseInt(numbers[0]);
+            setValue(parts[0]);
+            if(parts[1] != null) {
+                mCurrency = parts[1];
             }
-            if(numbers[1] != null) {
-                mCent = Integer.parseInt(numbers[1]);
-                hasCent = true;
-            }
-            mCurrency = parts[1];
 
         }catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
@@ -103,5 +98,16 @@ public class Currency {
             builder.append(mCent % 10);
         }
         return builder.toString();
+    }
+
+    public void setValue(String value) {
+        String[] numbers = value.split("\\.",2);
+        if(numbers[0] != null) {
+            mUnit = Integer.parseInt(numbers[0]);
+        }
+        if(numbers[1] != null) {
+            mCent = Integer.parseInt(numbers[1]);
+            hasCent = true;
+        }
     }
 }
